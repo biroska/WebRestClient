@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Web Rest Client</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=8" />
+        <h:outputStylesheet library="css" name="webRestStyleSheet.css" />
+	</h:head>
+
+    <h:body id="layoutBody"  styleClass="backGroundCss" >
+        <p:panelGrid styleClass="panelCss" >
+            <p:row id="rowHeader" styleClass="center">
+                <p:column colspan="3" styleClass="columnCss">
+                    <ui:insert name="header" >
+                        <ui:include src="header.xhtml" />
+                    </ui:insert>
+                </p:column>
+            </p:row>
+
+            <p:row id="rowBody">  <!-- style="line-height : 200px;" -->
+                <p:column width="22%" styleClass="columnCss" />
+                <p:column width="56%" styleClass="columnCss" >
+                    <ui:insert name="body" >
+                        <ui:include src="body.xhtml" />
+                    </ui:insert>
+                </p:column>
+                <p:column width="22%" styleClass="columnCss" />
+            </p:row>
+
+            <p:row id="rowFooter" styleClass="center">
+                <p:column colspan="3" styleClass="columnCss" >
+                    <ui:insert name="footer" >
+                        <ui:include src="footer.xhtml" />
+                    </ui:insert>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+    </h:body>
+</html>

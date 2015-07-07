@@ -1,0 +1,22 @@
+/*!
+ *
+ */
+.backGroundCss {
+	background-color:#D8D8D8;
+}
+
+.panelCss {
+	background-color:#D8D8D8;
+	border-style: hidden !important;
+	margin: 0 auto;
+	width: 1024px;
+}
+
+.columnCss {
+	background-color:#D8D8D8;
+	border-style: hidden !important;
+}
+
+.center {
+	text-align:center;
+}

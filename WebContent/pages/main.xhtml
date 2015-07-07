@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../WEB-INF/template/layout.xhtml">
+	<ui:define name="body">
+
+		<f:event listener="#{sessionMB.setUserSession}" type="preRenderView" />
+
+		<h:body>
+			<h:form id="mainForm">
+				<p:growl id="notificationMessage" />
+
+				<h3>
+					<h:outputText value="Bem vindo!: #{sessionMB.usuario.usuario}" />
+				</h3>
+				
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton id="novo" icon="fa fa-add" />
+					</f:facet>
+					<f:facet name="right">
+						<p:inputText id="searchField" placeholder="Procurar" value="#{mainMB.parametroConsulta}" />
+						<p:commandButton id="consultar" icon="fa fa-search" update="mainForm:notificationMessage innerClassTable" actionListener="#{mainMB.consultar}"/>
+					</f:facet>
+				</p:toolbar>
+				<br/>
+				
+				<p:dataTable id="innerClassTable" var="dtoBanda" value="#{mainMB.listaDTOBandas}" 
+				             paginator="true" rows="10">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{dtoBanda.banda.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Ano de Formação" />
+						</f:facet>
+						<h:outputText value="#{dtoBanda.banda.anoDeFormacao}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Album" />
+						</f:facet>
+						<h:outputText value="#{dtoBanda.nomeAlbum}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Ações" />
+						</f:facet>
+						<p:commandButton id="alterar" icon="fa fa-pencil" update="mainForm:notificationMessage innerClassTable" actionListener="#{mainMB.editarAlbum( dtoBanda.id )}"/>
+						<p:commandButton id="remover" icon="fa fa-remove" update="mainForm:notificationMessage innerClassTable" actionListener="#{mainMB.removerAlbum( dtoBanda.id )}"/>
+						<h:outputText value="#{dtoBanda.id}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>
+</html>

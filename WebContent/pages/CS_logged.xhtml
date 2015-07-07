@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template/layout.xhtml">
+		<ui:define name="body">
+			<h:form id="menuForm">
+			
+				<p:growl id="testMessage"/>
+			
+				<p:menubar>
+				
+					<p:submenu label="Ajax" >
+						<p:menuitem value="Incluir" icon="ui-icon-document" actionListener="#{userMB.add}" update="testMessage" />
+						<p:submenu label="Consultar" icon="ui-icon-search">
+							<p:menuitem value="Todos" icon="ui-icon-search" actionListener="#{userMB.add}" update="testMessage" />
+							<p:menuitem value="Filtrar" icon="ui-icon-search" actionListener="#{userMB.add}" update="testMessage" />
+						</p:submenu>
+						<p:menuitem value="Remover" icon="ui-icon-close" actionListener="#{userMB.add}" update="testMessage" />
+					</p:submenu>
+				
+				</p:menubar>
+			
+				<h2>
+					<h:outputText value="Bem vindo!: "/> #{loginMB.usuario.usuario}
+				</h2>
+			</h:form>
+		</ui:define>
+</ui:composition>
+</html>

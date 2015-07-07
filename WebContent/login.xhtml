@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<h:form>
+	<p:panelGrid>
+		<p:row >
+			<p:column colspan="4">
+				<h:outputText value="Acesso ao sistema" />
+			</p:column>
+		</p:row>
+		<p:row >
+			<p:column width="20%"/>
+			<p:column width="30%">
+				<h:outputText value="Login: " />
+			</p:column>
+			<p:column width="30%">
+				<h:inputText id="inputLogin" value="#{loginMB.usuario.usuario}" />
+			</p:column>
+			<p:column width="20%"/>
+		</p:row>
+		<p:row >
+			<p:column width="20%"/>
+			<p:column width="30%">
+				<h:outputText value="Senha: " />
+			</p:column>
+			<p:column width="30%">
+				<h:inputSecret id="inputSenha" value="#{loginMB.usuario.senha}" />
+			</p:column>
+			<p:column width="20%"/>
+		</p:row>
+		<p:row >
+			<p:column colspan="4">
+				<h:commandButton value="Logar" action="#{loginMB.autenticar}"/>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+</h:form>
+</h:body>
+</html>
