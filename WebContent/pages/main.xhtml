@@ -21,17 +21,22 @@
 				
 				<p:toolbar>
 					<f:facet name="left">
-						<p:commandButton id="novo" icon="fa fa-add" />
+						<p:commandButton id="novo" icon="fa fa-file-o" update="mainForm:notificationMessage :mainForm:cadastroModal innerClassTable"
+										 actionListener="#{mainMB.novo}" oncomplete="PF('cadastroModal').show();" />
 					</f:facet>
 					<f:facet name="right">
 						<p:inputText id="searchField" placeholder="Procurar" value="#{mainMB.parametroConsulta}" />
-						<p:commandButton id="consultar" icon="fa fa-search" update="mainForm:notificationMessage innerClassTable" actionListener="#{mainMB.consultar}"/>
+						<p:commandButton id="consultar" icon="fa fa-search" update="mainForm:notificationMessage innerClassTable"
+										 actionListener="#{mainMB.consultar}"/>
 					</f:facet>
 				</p:toolbar>
 				<br/>
 				
 				<p:dataTable id="innerClassTable" var="dtoBanda" value="#{mainMB.listaDTOBandas}" 
-				             paginator="true" rows="10">
+				             paginator="true" rows="10" selectionMode="single"
+				             selection="#{mainMB.selectedBand}" rowKey="#{dtoBanda.id}">
+					<p:ajax event="rowSelect" listener="#{mainMB.onRowSelect}" update=":mainForm:notificationMessage :mainForm:cadastroModal"
+					        oncomplete="PF('cadastroModal').show();" />
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Nome" />
@@ -59,6 +64,12 @@
 						<h:outputText value="#{dtoBanda.id}" />
 					</p:column>
 				</p:dataTable>
+
+				<p:dialog id="cadastroModal" header="Modal Dialog"
+						  widgetVar="cadastroModal" modal="true" height="100">
+    				<h:outputText value="#{mainMB.selectedBand.banda.nome}" />
+				</p:dialog>
+				
 			</h:form>
 		</h:body>
 	</ui:define>

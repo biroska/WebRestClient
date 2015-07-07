@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.SelectEvent;
+
 import service.Service;
 import entidade.Album;
 import entidade.Banda;
@@ -23,6 +25,7 @@ public class mainMB implements Serializable {
 	private ArrayList<Banda> listaBandas;
 	private ArrayList<InnerDTOBanda> listaDTOBandas;
 	private String parametroConsulta;
+	private InnerDTOBanda selectedBand;
 	
 	public mainMB(){
 		listaBandas = new ArrayList<Banda>( service.getAllBandas() );
@@ -43,11 +46,22 @@ public class mainMB implements Serializable {
 		addMessage("Registro Removido");
 	}
 	
+	public void novo() {
+		selectedBand = new InnerDTOBanda();
+		System.out.println("mainMB.novo()");
+	}
+	
 	public void consultar() {
 		
 		System.out.println("mainMB.consultar(): " + parametroConsulta );
 		
-		addMessage("Consulta concluída");
+		addMessage("Consulta concluï¿½da");
+	}
+	
+	public void onRowSelect( SelectEvent event ){
+		System.out.println("mainMB.onRowSelect(): " + selectedBand.getNomeAlbum() );
+		
+		addMessage("Album selecionado " + selectedBand.getNomeAlbum());
 	}
 	
 	public void addMessage(String text){
@@ -78,6 +92,14 @@ public class mainMB implements Serializable {
 
 	public void setParametroConsulta(String parametroConsulta) {
 		this.parametroConsulta = parametroConsulta;
+	}
+	
+	public InnerDTOBanda getSelectedBand() {
+		return selectedBand;
+	}
+
+	public void setSelectedBand(InnerDTOBanda selectedBand) {
+		this.selectedBand = selectedBand;
 	}
 
 	private ArrayList<InnerDTOBanda> convertFrom( Banda banda){
@@ -114,7 +136,7 @@ public class mainMB implements Serializable {
 		
 		private Banda banda;
 		
-//		Informações Album
+//		Informaï¿½ï¿½es Album
 		private int idAlbum;
 		private String nomeAlbum;
 		private int anoDeLancamentoAlbum;
