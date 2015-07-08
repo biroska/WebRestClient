@@ -12,7 +12,9 @@ public class Banda {
 	private int id;
 	private ArrayList<Album> albuns;
 	
-	public Banda(){}
+	public Banda(){
+		albuns = new ArrayList<Album>();
+	}
 	
 	public Banda( int id){
 		this.id = id;
