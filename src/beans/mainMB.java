@@ -11,7 +11,8 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 import service.Service;
-import entidade.Album;
+import converter.ConverterHelper;
+import dto.DTOBanda;
 import entidade.Banda;
 
 @SessionScoped
@@ -23,31 +24,33 @@ public class mainMB implements Serializable {
 	private Service service = new Service();
 	
 	private ArrayList<Banda> listaBandas;
-	private ArrayList<InnerDTOBanda> listaDTOBandas;
+	private ArrayList<DTOBanda> listaDTOBandas;
 	private String parametroConsulta;
-	private InnerDTOBanda selectedBand;
+	private DTOBanda selectedBand;
 	
 	public mainMB(){
-		listaBandas = new ArrayList<Banda>( service.getAllBandas() );
-		listaDTOBandas = new ArrayList<InnerDTOBanda>( convertFrom( listaBandas ) );
+		this.listaBandas = new ArrayList<Banda>( service.getAllBandas() );
+		this.listaDTOBandas = new ArrayList<DTOBanda>( ConverterHelper.convertFrom( listaBandas ) );
+		this.selectedBand = new DTOBanda();
 	}
 	
 	public void editarAlbum( String paramAlterar) {
 		
 		System.out.println("mainMB.buttonAction(): " + paramAlterar);
 
-		addMessage("Registro Atualizado");
+		addMessage("Registro Atualizado: " + getBandaFromList( paramAlterar ).getNomeAlbum() );
 	}
 	
 	public void removerAlbum( String paramAlterar) {
 		
 		System.out.println("mainMB.remover(): " + paramAlterar );
 		
-		addMessage("Registro Removido");
+		addMessage("Registro Removido: " + getBandaFromList( paramAlterar ).getNomeAlbum() );
 	}
 	
 	public void novo() {
-		selectedBand = new InnerDTOBanda();
+		this.selectedBand = new DTOBanda();
+		this.selectedBand.setNomeAlbum("TesteNomeAlbum");
 		System.out.println("mainMB.novo()");
 	}
 	
@@ -55,7 +58,7 @@ public class mainMB implements Serializable {
 		
 		System.out.println("mainMB.consultar(): " + parametroConsulta );
 		
-		addMessage("Consulta conclu�da");
+		addMessage("Consulta concluida");
 	}
 	
 	public void onRowSelect( SelectEvent event ){
@@ -64,7 +67,11 @@ public class mainMB implements Serializable {
 		addMessage("Album selecionado " + selectedBand.getNomeAlbum());
 	}
 	
-	public void addMessage(String text){
+	private DTOBanda getBandaFromList( String id ){
+		return listaDTOBandas.get( listaDTOBandas.indexOf( new DTOBanda( id ) ) );
+	}
+	
+	private void addMessage(String text){
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, text, null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
@@ -78,11 +85,11 @@ public class mainMB implements Serializable {
 	}
 	
 	
-	public ArrayList<InnerDTOBanda> getListaDTOBandas() {
+	public ArrayList<DTOBanda> getListaDTOBandas() {
 		return listaDTOBandas;
 	}
 	
-	public void setListaDTOBandas(ArrayList<InnerDTOBanda> listaDTOBandas) {
+	public void setListaDTOBandas(ArrayList<DTOBanda> listaDTOBandas) {
 		this.listaDTOBandas = listaDTOBandas;
 	}
 	
@@ -94,101 +101,11 @@ public class mainMB implements Serializable {
 		this.parametroConsulta = parametroConsulta;
 	}
 	
-	public InnerDTOBanda getSelectedBand() {
+	public DTOBanda getSelectedBand() {
 		return selectedBand;
 	}
 
-	public void setSelectedBand(InnerDTOBanda selectedBand) {
+	public void setSelectedBand(DTOBanda selectedBand) {
 		this.selectedBand = selectedBand;
-	}
-
-	private ArrayList<InnerDTOBanda> convertFrom( Banda banda){
-		
-		ArrayList<InnerDTOBanda> listaDTO = new ArrayList<InnerDTOBanda>();
-		
-		for (Album album : banda.getAlbuns() ) {
-			InnerDTOBanda dto = new InnerDTOBanda();
-			dto.setId( "B"+banda.getId()+"A"+album.getId()  );
-			dto.setBanda( banda );
-			dto.setIdAlbum( album.getId() );
-			dto.setNomeAlbum( album.getNome() );
-			dto.setAnoDeLancamentoAlbum( album.getAnoDeLancamento() );
-			
-			listaDTO.add( dto );
-		}
-		return listaDTO;
-	}
-	
-	private ArrayList<InnerDTOBanda> convertFrom( ArrayList<Banda> lista ){
-		
-		ArrayList<InnerDTOBanda> listaDTO = new ArrayList<InnerDTOBanda>();
-		
-		for (Banda banda : lista) {
-			listaDTO.addAll( convertFrom( banda ) );
-		}
-		
-		return listaDTO;
-	}
-	
-	public class InnerDTOBanda {
-		
-		private String id;
-		
-		private Banda banda;
-		
-//		Informa��es Album
-		private int idAlbum;
-		private String nomeAlbum;
-		private int anoDeLancamentoAlbum;
-		
-		public String getId() {
-			return id;
-		}
-
-		public void setId(String id) {
-			this.id = id;
-		}
-
-		public Banda getBanda() {
-			return banda;
-		}
-
-		public void setBanda(Banda banda) {
-			this.banda = banda;
-		}
-
-		public int getIdAlbum() {
-			return idAlbum;
-		}
-
-		public void setIdAlbum(int idAlbum) {
-			this.idAlbum = idAlbum;
-		}
-
-		public String getNomeAlbum() {
-			return nomeAlbum;
-		}
-
-		public void setNomeAlbum(String nomeAlbum) {
-			this.nomeAlbum = nomeAlbum;
-		}
-
-		public int getAnoDeLancamentoAlbum() {
-			return anoDeLancamentoAlbum;
-		}
-
-		public void setAnoDeLancamentoAlbum(int anoDeLancamentoAlbum) {
-			this.anoDeLancamentoAlbum = anoDeLancamentoAlbum;
-		}
-
-		private String testeInner = "testeInner";
-
-		public String getTesteInner() {
-			return testeInner;
-		}
-
-		public void setTesteInner(String testeInner) {
-			this.testeInner = testeInner;
-		}
 	}
 }

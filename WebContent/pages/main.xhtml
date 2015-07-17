@@ -21,7 +21,7 @@
 				
 				<p:toolbar>
 					<f:facet name="left">
-						<p:commandButton id="novo" icon="fa fa-file-o" update="mainForm:notificationMessage :mainForm:cadastroModal innerClassTable"
+						<p:commandButton id="novo" icon="fa fa-file-o" update="mainForm:notificationMessage mainForm:cadastroModal innerClassTable"
 										 actionListener="#{mainMB.novo}" oncomplete="PF('cadastroModal').show();" />
 					</f:facet>
 					<f:facet name="right">
@@ -35,8 +35,8 @@
 				<p:dataTable id="innerClassTable" var="dtoBanda" value="#{mainMB.listaDTOBandas}" 
 				             paginator="true" rows="10" selectionMode="single"
 				             selection="#{mainMB.selectedBand}" rowKey="#{dtoBanda.id}">
-					<p:ajax event="rowSelect" listener="#{mainMB.onRowSelect}" update=":mainForm:notificationMessage :mainForm:cadastroModal"
-					        oncomplete="PF('cadastroModal').show();" />
+					<p:ajax event="rowSelect" listener="#{mainMB.onRowSelect}" update=":mainForm:notificationMessage"
+					        />
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Nome" />
@@ -66,30 +66,10 @@
 				</p:dataTable>
 
 				<p:dialog id="cadastroModal" header="Modal Dialog"
-						  widgetVar="cadastroModal" modal="true" height="200">
-
-					<p:panelGrid columns="2">
-						<p:outputLabel for="modalNomeBanda" value="Banda:" />
-	    				<p:inputText id="modalNomeBanda" value="#{mainMB.selectedBand.banda.nome}" required="true" />
-						
-						<p:outputLabel for="modalBandaAno" value="Ano de Formacao:" />
-	    				<p:inputText id="modalBandaAno" value="#{mainMB.selectedBand.banda.anoDeFormacao}" required="true" />
-						
-						<p:outputLabel for="modalAlbum" value="Album:" />
-	    				<p:inputText id="modalAlbum" value="#{mainMB.selectedBand.nomeAlbum}" required="true" />
-						
-						<p:outputLabel for="modalAlbumAno" value="Ano de lancamento:" />
-	    				<p:inputText id="modalAlbumAno" value="#{mainMB.selectedBand.anoDeLancamentoAlbum}" required="true" />
-	    				
-	    				<f:facet name="footer">
-	    					<p:commandButton id="modalSalvar" value="Salvar" icon="fa fa-save" update="mainForm:notificationMessage innerClassTable"
-										 actionListener="#{mainMB.consultar}"/>
-	    				</f:facet>
-	    				
-					</p:panelGrid>
-
+					widgetVar="cadastroModal" modal="true" height="200">
+					<h:outputText value="#{mainMB.selectedBand.nomeAlbum}" />
 				</p:dialog>
-				
+
 			</h:form>
 		</h:body>
 	</ui:define>
