@@ -13,20 +13,20 @@ import org.primefaces.event.SelectEvent;
 import service.Service;
 import converter.ConverterHelper;
 import dto.DTOBanda;
+import dto.Teste;
 import entidade.Banda;
 
 @SessionScoped
 @ManagedBean(name="mainMB")
 public class mainMB implements Serializable {
 
-	private static final long serialVersionUID = -7440852920428716001L;
-	
 	private Service service = new Service();
 	
 	private ArrayList<Banda> listaBandas;
 	private ArrayList<DTOBanda> listaDTOBandas;
 	private String parametroConsulta;
-	private DTOBanda selectedBand;
+	public DTOBanda selectedBand = new DTOBanda();
+	private Teste gambi = new Teste();
 	
 	public mainMB(){
 		this.listaBandas = new ArrayList<Banda>( service.getAllBandas() );
@@ -51,6 +51,8 @@ public class mainMB implements Serializable {
 	public void novo() {
 		this.selectedBand = new DTOBanda();
 		this.selectedBand.setNomeAlbum("TesteNomeAlbum");
+		this.parametroConsulta = "PORRAMETO!!!!!!!!";
+		this.gambi.setTesteNome("adadadadadadasd");
 		System.out.println("mainMB.novo()");
 	}
 	
@@ -100,7 +102,7 @@ public class mainMB implements Serializable {
 	public void setParametroConsulta(String parametroConsulta) {
 		this.parametroConsulta = parametroConsulta;
 	}
-	
+
 	public DTOBanda getSelectedBand() {
 		return selectedBand;
 	}
@@ -108,4 +110,14 @@ public class mainMB implements Serializable {
 	public void setSelectedBand(DTOBanda selectedBand) {
 		this.selectedBand = selectedBand;
 	}
+
+	public Teste getGambi() {
+		return gambi;
+	}
+
+	public void setGambi(Teste gambi) {
+		this.gambi = gambi;
+	}
+	
+	
 }
