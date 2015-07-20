@@ -9,9 +9,9 @@ public class DTOBanda {
 	private Banda banda;
 	
 //	Informacoes Album
-	private int idAlbum;
+	private Long idAlbum;
 	private String nomeAlbum;
-	private int anoDeLancamentoAlbum;
+	private Long anoDeLancamentoAlbum;
 	
 	public DTOBanda(){
 		this.banda = new Banda();
@@ -21,8 +21,6 @@ public class DTOBanda {
 		super();
 		this.id = id;
 	}
-
-
 
 	public String getId() {
 		return id;
@@ -40,11 +38,11 @@ public class DTOBanda {
 		this.banda = banda;
 	}
 
-	public int getIdAlbum() {
+	public Long getIdAlbum() {
 		return idAlbum;
 	}
 
-	public void setIdAlbum(int idAlbum) {
+	public void setIdAlbum(Long idAlbum) {
 		this.idAlbum = idAlbum;
 	}
 
@@ -56,22 +54,12 @@ public class DTOBanda {
 		this.nomeAlbum = nomeAlbum;
 	}
 
-	public int getAnoDeLancamentoAlbum() {
+	public Long getAnoDeLancamentoAlbum() {
 		return anoDeLancamentoAlbum;
 	}
 
-	public void setAnoDeLancamentoAlbum(int anoDeLancamentoAlbum) {
+	public void setAnoDeLancamentoAlbum(Long anoDeLancamentoAlbum) {
 		this.anoDeLancamentoAlbum = anoDeLancamentoAlbum;
-	}
-
-	private String testeInner = "testeInner";
-
-	public String getTesteInner() {
-		return testeInner;
-	}
-
-	public void setTesteInner(String testeInner) {
-		this.testeInner = testeInner;
 	}
 
 	@Override

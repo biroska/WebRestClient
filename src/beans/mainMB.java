@@ -26,34 +26,39 @@ public class mainMB implements Serializable {
 	private ArrayList<DTOBanda> listaDTOBandas;
 	private String parametroConsulta;
 	public DTOBanda selectedBand = new DTOBanda();
-	private Teste gambi = new Teste();
+	private DTOBanda bandaModal;
 	
 	public mainMB(){
 		this.listaBandas = new ArrayList<Banda>( service.getAllBandas() );
 		this.listaDTOBandas = new ArrayList<DTOBanda>( ConverterHelper.convertFrom( listaBandas ) );
 		this.selectedBand = new DTOBanda();
+		this.bandaModal = new DTOBanda();
 	}
 	
 	public void editarAlbum( String paramAlterar) {
 		
 		System.out.println("mainMB.buttonAction(): " + paramAlterar);
 
-		addMessage("Registro Atualizado: " + getBandaFromList( paramAlterar ).getNomeAlbum() );
+		this.bandaModal = getBandaFromList( paramAlterar );
+		
 	}
 	
 	public void removerAlbum( String paramAlterar) {
 		
 		System.out.println("mainMB.remover(): " + paramAlterar );
-		
-		addMessage("Registro Removido: " + getBandaFromList( paramAlterar ).getNomeAlbum() );
+		this.bandaModal = getBandaFromList( paramAlterar );
+		addMessage("Registro salvo: " + bandaModal.getBanda().getNome() );
 	}
 	
 	public void novo() {
-		this.selectedBand = new DTOBanda();
-		this.selectedBand.setNomeAlbum("TesteNomeAlbum");
-		this.parametroConsulta = "PORRAMETO!!!!!!!!";
-		this.gambi.setTesteNome("adadadadadadasd");
+		this.bandaModal = new DTOBanda();
 		System.out.println("mainMB.novo()");
+	}
+	
+	public void salvar() {
+		System.out.println("mainMB.salvar()");
+		
+		addMessage("Registro salvo: " + bandaModal.getBanda().getNome() );
 	}
 	
 	public void consultar() {
@@ -65,6 +70,8 @@ public class mainMB implements Serializable {
 	
 	public void onRowSelect( SelectEvent event ){
 		System.out.println("mainMB.onRowSelect(): " + selectedBand.getNomeAlbum() );
+		
+		this.bandaModal = selectedBand;
 		
 		addMessage("Album selecionado " + selectedBand.getNomeAlbum());
 	}
@@ -111,13 +118,11 @@ public class mainMB implements Serializable {
 		this.selectedBand = selectedBand;
 	}
 
-	public Teste getGambi() {
-		return gambi;
+	public DTOBanda getBandaModal() {
+		return bandaModal;
 	}
 
-	public void setGambi(Teste gambi) {
-		this.gambi = gambi;
+	public void setBandaModal(DTOBanda bandaModal) {
+		this.bandaModal = bandaModal;
 	}
-	
-	
 }

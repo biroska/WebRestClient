@@ -3,12 +3,12 @@ package entidade;
 public class Album {
 
 	private String nome;
-	private int anoDeLancamento;
-	private int id;
+	private Long anoDeLancamento;
+	private Long id;
 	
 	public Album(){}
 	
-	public Album( int id, String nome, int anoDeLancamento ){
+	public Album( Long id, String nome, Long anoDeLancamento ){
 		
 		this.id = id;
 		this.nome = nome;
@@ -23,19 +23,19 @@ public class Album {
 		this.nome = nome;
 	}
 
-	public int getAnoDeLancamento() {
+	public Long getAnoDeLancamento() {
 		return anoDeLancamento;
 	}
 
-	public void setAnoDeLancamento(int anoDeLancamento) {
+	public void setAnoDeLancamento(Long anoDeLancamento) {
 		this.anoDeLancamento = anoDeLancamento;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -43,7 +43,8 @@ public class Album {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + anoDeLancamento;
+		result = prime * result
+				+ ((anoDeLancamento == null) ? 0 : anoDeLancamento.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
@@ -57,7 +58,10 @@ public class Album {
 		if (getClass() != obj.getClass())
 			return false;
 		Album other = (Album) obj;
-		if (anoDeLancamento != other.anoDeLancamento)
+		if (anoDeLancamento == null) {
+			if (other.anoDeLancamento != null)
+				return false;
+		} else if (!anoDeLancamento.equals(other.anoDeLancamento))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
