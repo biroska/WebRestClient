@@ -31,7 +31,16 @@
 					</f:facet>
 				</p:toolbar>
 				<br/>
-				
+
+				<p:outputPanel id="errorMessagePanel" rendered="#{mainMB.errorMessage ne null}">
+					<div class="ui-message-error ui-widget ui-corner-all">
+						<span class="ui-message-error-icon" />
+						<span class="ui-message-error-detail">#{mainMB.errorMessage}</span>
+					</div>
+				</p:outputPanel>
+
+
+				<br/>
 				<p:dataTable id="innerClassTable" var="dtoBanda" value="#{mainMB.listaDTOBandas}" 
 				             paginator="true" rows="10" selectionMode="single"
 				             selection="#{mainMB.selectedBand}" rowKey="#{dtoBanda.id}">
@@ -102,7 +111,7 @@
 						</p:row>
 						<p:row>
 							<p:column colspan="2" >
-								<p:commandButton id="modalSalvar" icon="fa fa-save" update="mainForm:notificationMessage innerClassTable"
+								<p:commandButton id="modalSalvar" icon="fa fa-save" update="mainForm:notificationMessage mainForm:errorMessagePanel innerClassTable"
 										 		 actionListener="#{mainMB.salvar}" oncomplete="PF('cadastroModal').hide();" />
 							</p:column>
 						</p:row>

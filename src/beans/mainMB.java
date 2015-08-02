@@ -28,11 +28,14 @@ public class mainMB implements Serializable {
 	public DTOBanda selectedBand = new DTOBanda();
 	private DTOBanda bandaModal;
 	
+	private String errorMessage = null;
+	
 	public mainMB(){
 		this.listaBandas = new ArrayList<Banda>( service.getAllBandas() );
 		this.listaDTOBandas = new ArrayList<DTOBanda>( ConverterHelper.convertFrom( listaBandas ) );
 		this.selectedBand = new DTOBanda();
 		this.bandaModal = new DTOBanda();
+		this.errorMessage = null;
 	}
 	
 	public void editarAlbum( String paramAlterar) {
@@ -56,9 +59,18 @@ public class mainMB implements Serializable {
 	}
 	
 	public void salvar() {
-		System.out.println("mainMB.salvar()");
-		
-		addMessage("Registro salvo: " + bandaModal.getBanda().getNome() );
+
+		try {
+			errorMessage = null;
+			long err = 0l / 0l;
+			System.out.println("mainMB.salvar()");
+
+			addMessage("Registro salvo: " + bandaModal.getBanda().getNome());
+		} catch (Exception e) {
+			e.printStackTrace();
+			addMessage("Ocorreu um erro " + e.getMessage());
+			errorMessage = "Ocorreu um erro: " + e.getMessage();
+		}
 	}
 	
 	public void consultar() {
@@ -124,5 +136,13 @@ public class mainMB implements Serializable {
 
 	public void setBandaModal(DTOBanda bandaModal) {
 		this.bandaModal = bandaModal;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 }
