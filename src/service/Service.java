@@ -3,15 +3,16 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import webService.WebServiceAccess;
 import dao.userDAO;
+import entidade.Album;
 import entidade.Banda;
 import entidade.User;
-import webService.WebServiceAccess;
 
 public class Service {
 	
 	private userDAO dao = new userDAO();
-	private WebServiceAccess service = new WebServiceAccess();
+	private WebServiceAccess webService = new WebServiceAccess();
 	
 	public boolean getUser( User usuario ){
 		
@@ -20,9 +21,17 @@ public class Service {
 	
 	public List<Banda> getAllBandas(){
 		
-		List<Banda> allBandas = service.getAllBandas();
+		List<Banda> allBandas = webService.getAllBandas();
 		
 		return allBandas != null ? allBandas : new ArrayList<Banda>();
+	}
+	
+	public void removerAlbum( Banda banda, Album album ){
+		webService.removerAlbum( banda, album );
+	}
+	
+	public void editarAlbum( String id, Album album ){
+		webService.editarAlbum( id, album );
 	}
 
 }

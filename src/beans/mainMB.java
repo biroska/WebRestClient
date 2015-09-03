@@ -13,7 +13,7 @@ import org.primefaces.event.SelectEvent;
 import service.Service;
 import converter.ConverterHelper;
 import dto.DTOBanda;
-import dto.Teste;
+import entidade.Album;
 import entidade.Banda;
 
 @SessionScoped
@@ -38,32 +38,45 @@ public class mainMB implements Serializable {
 		this.errorMessage = null;
 	}
 	
-	public void editarAlbum( String paramAlterar) {
+	public void editarAlbum( String id) {
 		
-		System.out.println("mainMB.buttonAction(): " + paramAlterar);
+		System.out.println("mainMB.buttonAction(): " + id);
+		
+		this.bandaModal = getBandaFromList( id );
+		
+		service.editarAlbum( id, new Album( this.bandaModal.getIdAlbum(), this.bandaModal.getNomeAlbum(), this.bandaModal.getAnoDeLancamentoAlbum() ) );
 
-		this.bandaModal = getBandaFromList( paramAlterar );
+		this.bandaModal = getBandaFromList( id );
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void removerAlbum( String paramAlterar) {
 		
-		System.out.println("mainMB.remover(): " + paramAlterar );
 		this.bandaModal = getBandaFromList( paramAlterar );
-		addMessage("Registro salvo: " + bandaModal.getBanda().getNome() );
+		
+		service.removerAlbum( this.bandaModal.getBanda(), new Album( this.bandaModal.getIdAlbum(), this.bandaModal.getNomeAlbum(), this.bandaModal.getAnoDeLancamentoAlbum() ) );
+		
+		addMessage("Registro Removido: " + bandaModal.getBanda().getNome() );
+		
+		recarregarListaBandas();
 	}
-	
+
 	public void novo() {
 		this.bandaModal = new DTOBanda();
 		System.out.println("mainMB.novo()");
 	}
 	
-	public void salvar() {
+	public void salvar( ) {
 
 		try {
 			errorMessage = null;
-			long err = 0l / 0l;
-			System.out.println("mainMB.salvar()");
+			System.out.println("mainMB.salvar(): " + bandaModal.getId());
+			
+			if ( bandaModal.getId() != null ){
+				this.bandaModal = getBandaFromList( bandaModal.getId() );
+				service.editarAlbum( bandaModal.getId(), new Album( this.bandaModal.getIdAlbum(), this.bandaModal.getNomeAlbum(), this.bandaModal.getAnoDeLancamentoAlbum() ) );
+			}
 
 			addMessage("Registro salvo: " + bandaModal.getBanda().getNome());
 		} catch (Exception e) {
@@ -78,6 +91,11 @@ public class mainMB implements Serializable {
 		System.out.println("mainMB.consultar(): " + parametroConsulta );
 		
 		addMessage("Consulta concluida");
+	}
+
+	public void recarregarListaBandas() {
+		this.listaDTOBandas = ConverterHelper.convertFrom( (ArrayList) service.getAllBandas() );
+		System.out.println("mainMB.recarregarListaBandas()");
 	}
 	
 	public void onRowSelect( SelectEvent event ){

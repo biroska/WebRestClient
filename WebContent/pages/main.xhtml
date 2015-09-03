@@ -39,7 +39,6 @@
 					</div>
 				</p:outputPanel>
 
-
 				<br/>
 				<p:dataTable id="innerClassTable" var="dtoBanda" value="#{mainMB.listaDTOBandas}" 
 				             paginator="true" rows="10" selectionMode="single"
@@ -67,12 +66,12 @@
 						<f:facet name="header">
 							<h:outputText value="Ações" />
 						</f:facet>
-						<p:commandButton id="alterar" icon="fa fa-pencil" update="mainForm:notificationMessage mainForm:cadastroModal innerClassTable" actionListener="#{mainMB.editarAlbum( dtoBanda.id )}" oncomplete="PF('cadastroModal').show();" />
-						<p:commandButton id="remover" icon="fa fa-remove" update="mainForm:notificationMessage innerClassTable" actionListener="#{mainMB.removerAlbum( dtoBanda.id )}"/>
+						<p:commandButton id="alterar" icon="fa fa-pencil" update="mainForm:notificationMessage mainForm:cadastroModal mainForm:innerClassTable" actionListener="#{mainMB.editarAlbum( dtoBanda.id )}" oncomplete="PF('cadastroModal').show();" />
+						<p:commandButton id="remover" icon="fa fa-remove" update="mainForm:notificationMessage mainForm:innerClassTable" actionListener="#{mainMB.removerAlbum( dtoBanda.id )}"/>
 						<h:outputText value="#{dtoBanda.id}" />
 					</p:column>
 				</p:dataTable>
-
+				
 				<p:dialog id="cadastroModal" header="Modal Dialog"
 						  widgetVar="cadastroModal" modal="true" height="250">
 					<br />
@@ -82,7 +81,7 @@
 								<p:outputLabel for="modalBanda" value="Banda:" />
 							</p:column>
 							<p:column>
-								<p:inputText id="modalBanda" value="#{mainMB.bandaModal.banda.nome}" />
+								<p:inputText id="modalBanda" readonly="true" value="#{mainMB.bandaModal.banda.nome}" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -90,7 +89,7 @@
 								<p:outputLabel for="modalAnoFormacao" value="Ano de Formação:" />
 							</p:column>
 							<p:column>
-								<p:inputText id="modalAnoFormacao" value="#{mainMB.bandaModal.banda.anoDeFormacao}" />
+								<p:inputText id="modalAnoFormacao" readonly="true" value="#{mainMB.bandaModal.banda.anoDeFormacao}" />
 							</p:column>
 						</p:row>
 						<p:row>

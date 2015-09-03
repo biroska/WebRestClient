@@ -1,5 +1,6 @@
 package dto;
 
+import entidade.Album;
 import entidade.Banda;
 
 public class DTOBanda {

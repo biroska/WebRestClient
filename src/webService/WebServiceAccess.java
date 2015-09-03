@@ -3,6 +3,7 @@ package webService;
 import java.util.ArrayList;
 import java.util.List;
 
+import entidade.Album;
 import entidade.Banda;
 
 public class WebServiceAccess {
@@ -31,5 +32,20 @@ public class WebServiceAccess {
 
 		return listaBandas;
 	}
-
+	
+	public void removerAlbum( Banda banda, Album album ){
+		int index = listaBandas.indexOf( banda );
+		boolean remove = listaBandas.get( index ).getAlbuns().remove( album );
+	}
+	
+	public void editarAlbum( String id, Album album ){
+		
+		String[] split = id.split("A");
+		int idBanda = Integer.valueOf( split[0].substring( 1 ) ) -1;
+		int idAlbum = Integer.valueOf( split[1] );
+		
+//		System.out.println("WebServiceAccess.editarAlbum(): " + idBanda +" ========= "+idAlbum);
+		listaBandas.get( idBanda ).getAlbuns().get( idAlbum ).setNome( album.getNome() );
+		listaBandas.get( idBanda ).getAlbuns().get( idAlbum ).setAnoDeLancamento( album.getAnoDeLancamento() );
+	}
 }
