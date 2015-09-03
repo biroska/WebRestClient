@@ -14,6 +14,12 @@ public class Album {
 		this.nome = nome;
 		this.anoDeLancamento = anoDeLancamento;
 	}
+	
+	public Album(String nome, Long anoDeLancamento) {
+		super();
+		this.nome = nome;
+		this.anoDeLancamento = anoDeLancamento;
+	}
 
 	public String getNome() {
 		return nome;

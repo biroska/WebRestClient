@@ -81,7 +81,7 @@
 								<p:outputLabel for="modalBanda" value="Banda:" />
 							</p:column>
 							<p:column>
-								<p:inputText id="modalBanda" readonly="true" value="#{mainMB.bandaModal.banda.nome}" />
+								<p:inputText id="modalBanda" readonly="#{mainMB.bandaModal.banda.id ne null}" value="#{mainMB.bandaModal.banda.nome}" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -89,7 +89,7 @@
 								<p:outputLabel for="modalAnoFormacao" value="Ano de Formação:" />
 							</p:column>
 							<p:column>
-								<p:inputText id="modalAnoFormacao" readonly="true" value="#{mainMB.bandaModal.banda.anoDeFormacao}" />
+								<p:inputText id="modalAnoFormacao" readonly="#{mainMB.bandaModal.banda.id ne null}" value="#{mainMB.bandaModal.banda.anoDeFormacao}" />
 							</p:column>
 						</p:row>
 						<p:row>

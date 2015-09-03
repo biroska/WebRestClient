@@ -34,5 +34,14 @@ public class ConverterHelper {
 			listaDTO.add( dto );
 		}
 		return listaDTO;
+	}
+	
+	public static Banda convertFrom(DTOBanda dtoBanda) {
+		
+		Banda banda = new Banda( dtoBanda.getBanda().getNome(), dtoBanda.getBanda().getAnoDeFormacao() );
+		
+		banda.getAlbuns().add( new Album( dtoBanda.getNomeAlbum(), dtoBanda.getAnoDeLancamentoAlbum() )  );
+		
+		return banda;
 	}	
 }

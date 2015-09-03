@@ -33,5 +33,9 @@ public class Service {
 	public void editarAlbum( String id, Album album ){
 		webService.editarAlbum( id, album );
 	}
+	
+	public void salvarBanda( Banda banda ){
+		webService.salvarBanda( banda );
+	}
 
 }

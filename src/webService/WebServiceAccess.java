@@ -48,4 +48,15 @@ public class WebServiceAccess {
 		listaBandas.get( idBanda ).getAlbuns().get( idAlbum ).setNome( album.getNome() );
 		listaBandas.get( idBanda ).getAlbuns().get( idAlbum ).setAnoDeLancamento( album.getAnoDeLancamento() );
 	}
+	
+	public void salvarBanda( Banda banda ){
+		
+		banda.setId( (long) listaBandas.size() +1 );
+		
+		for (int i = 0; i < banda.getAlbuns().size(); i++) {
+			banda.getAlbuns().get( i ).setId( (long) i );
+		}
+		
+		listaBandas.add( banda );
+	}
 }

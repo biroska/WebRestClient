@@ -16,6 +16,13 @@ public class Banda {
 		albuns = new ArrayList<Album>();
 	}
 	
+	public Banda(String nome, Long anoDeFormacao) {
+		super();
+		this.nome = nome;
+		this.anoDeFormacao = anoDeFormacao;
+		this.albuns = new ArrayList<Album>();
+	}
+
 	public Banda( Long id){
 		this.id = id;
 	}

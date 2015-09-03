@@ -73,12 +73,18 @@ public class mainMB implements Serializable {
 			errorMessage = null;
 			System.out.println("mainMB.salvar(): " + bandaModal.getId());
 			
-			if ( bandaModal.getId() != null ){
+			if ( bandaModal.getId() != null ){ // EDICAO
 				this.bandaModal = getBandaFromList( bandaModal.getId() );
 				service.editarAlbum( bandaModal.getId(), new Album( this.bandaModal.getIdAlbum(), this.bandaModal.getNomeAlbum(), this.bandaModal.getAnoDeLancamentoAlbum() ) );
+				
+			} else {
+				// Novo registro
+				service.salvarBanda( ConverterHelper.convertFrom(bandaModal) );
 			}
 
 			addMessage("Registro salvo: " + bandaModal.getBanda().getNome());
+			
+			recarregarListaBandas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			addMessage("Ocorreu um erro " + e.getMessage());
