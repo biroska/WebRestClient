@@ -9,7 +9,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import util.Constants;
+import converter.JAXB;
 import entidade.Album;
 import entidade.Banda;
 
@@ -22,7 +25,7 @@ public class WebServiceAccess implements ServiceAccess {
 		
 		Long id = 1L;
 		
-		listaBandas.add( new Banda( id++, "Led Zeppelin", 1968L) );
+		listaBandas.add( new Banda( id++, "MOCK", 1968L) );
 		listaBandas.add( new Banda( id++, "AC/DC", 1973L) );
 		listaBandas.add( new Banda( id++, "Rolling Stones", 1962L) );
 		listaBandas.add( new Banda( id++, "Black Sabbath", 1968L) );
@@ -37,6 +40,8 @@ public class WebServiceAccess implements ServiceAccess {
 	
 	public List<Banda> getAllBandas() {
 
+		listaBandas = new ArrayList<Banda>();
+		
 		try {
 			 
 			URL url = new URL( Constants.WEBSERVICE_ADDRESS.GET_ALL );
@@ -51,12 +56,20 @@ public class WebServiceAccess implements ServiceAccess {
 	 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 				(conn.getInputStream())));
-	 
+	
+			try {
+				listaBandas = JAXB.jaxbXMLToObject( conn.getInputStream() );
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			String output;
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
 				System.out.println(output);
 			}
+			
 			conn.disconnect();
 	 
 		  } catch (MalformedURLException e) {
@@ -67,7 +80,6 @@ public class WebServiceAccess implements ServiceAccess {
 	 
 			e.printStackTrace();
 		  }
-		
 		
 		return listaBandas;
 	}

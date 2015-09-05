@@ -51,5 +51,6 @@ public class LoginMB implements Serializable {
 	public void setMock(boolean mock) {
 		this.mock = mock;
 		SessionAux.MOCK = mock;
+		System.out.println("LoginMB.setMock(): SessionAux.MOCK " + SessionAux.MOCK );
 	}
 }

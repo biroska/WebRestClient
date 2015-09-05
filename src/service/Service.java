@@ -15,7 +15,7 @@ import entidade.User;
 public class Service implements ServiceAccess {
 	
 	private userDAO dao = new userDAO();
-	private ServiceAccess webService = SessionAux.MOCK ? new WebServiceAccess() : new MockServiceAccess();
+	private ServiceAccess webService = SessionAux.MOCK ? new MockServiceAccess() : new WebServiceAccess();
 	
 	public boolean getUser( User usuario ){
 		
