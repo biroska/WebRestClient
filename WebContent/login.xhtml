@@ -5,10 +5,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
+<h:head></h:head>
 <h:body>
 <h:form>
-	<p:panelGrid>
+	<p:panelGrid style="text-align: center;"   >
 		<p:row >
 			<p:column colspan="4">
 				<h:outputText value="Acesso ao sistema" />
@@ -35,8 +35,19 @@
 			<p:column width="20%"/>
 		</p:row>
 		<p:row >
+			<p:column width="20%"/>
+			<p:column width="30%">
+				<h:outputText value="Mock: " />
+			</p:column>
+			<p:column width="30%" style="text-align: left"  >
+				<p:selectBooleanButton id="booleanMock" value="#{loginMB.mock}" offLabel="Não" onLabel="Sim"
+				                       onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+			</p:column>
+			<p:column width="20%"/>
+		</p:row>
+		<p:row >
 			<p:column colspan="4">
-				<h:commandButton value="Logar" action="#{loginMB.autenticar}"/>
+				<p:commandButton value="Logar" action="#{loginMB.autenticar}"/>
 			</p:column>
 		</p:row>
 	</p:panelGrid>

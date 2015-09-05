@@ -3,10 +3,13 @@ package webService;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
+
+import beans.SessionMB;
 import entidade.Album;
 import entidade.Banda;
 
-public class WebServiceAccess implements ServiceAccess {
+public class MockServiceAccess implements ServiceAccess {
 
 	private static ArrayList<Banda> listaBandas = new ArrayList<Banda>();
 

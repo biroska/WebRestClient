@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -18,7 +19,7 @@ import entidade.Banda;
 
 @SessionScoped
 @ManagedBean(name="mainMB")
-public class mainMB implements Serializable {
+public class MainMB implements Serializable {
 
 	private Service service = new Service();
 	
@@ -30,7 +31,18 @@ public class mainMB implements Serializable {
 	
 	private String errorMessage = null;
 	
-	public mainMB(){
+	@ManagedProperty(value="#{sessionMB}")
+	private SessionMB sessionMB;
+	
+	public SessionMB getSessionMB() {
+		return sessionMB;
+	}
+
+	public void setSessionMB(SessionMB sessionMB) {
+		this.sessionMB = sessionMB;
+	}
+
+	public MainMB(){
 		this.listaBandas = new ArrayList<Banda>( service.getAllBandas() );
 		this.listaDTOBandas = new ArrayList<DTOBanda>( ConverterHelper.convertFrom( listaBandas ) );
 		this.selectedBand = new DTOBanda();
@@ -70,6 +82,9 @@ public class mainMB implements Serializable {
 	public void salvar( ) {
 
 		try {
+			
+			System.out.println("MainMB.salvar(): " + sessionMB );
+			
 			errorMessage = null;
 			System.out.println("mainMB.salvar(): " + bandaModal.getId());
 			

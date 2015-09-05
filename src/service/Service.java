@@ -3,16 +3,19 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.SessionAux;
+import webService.MockServiceAccess;
+import webService.ServiceAccess;
 import webService.WebServiceAccess;
 import dao.userDAO;
 import entidade.Album;
 import entidade.Banda;
 import entidade.User;
 
-public class Service {
+public class Service implements ServiceAccess {
 	
 	private userDAO dao = new userDAO();
-	private WebServiceAccess webService = new WebServiceAccess();
+	private ServiceAccess webService = SessionAux.MOCK ? new WebServiceAccess() : new MockServiceAccess();
 	
 	public boolean getUser( User usuario ){
 		

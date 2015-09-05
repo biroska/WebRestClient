@@ -21,7 +21,7 @@ public class SessionMB implements Serializable {
 	@ManagedProperty(value="#{loginMB}")
 	private LoginMB loginMB;
 	
-	public SessionMB(){	}
+	public SessionMB(){}
 	
 	public void setUserSession( ComponentSystemEvent event ){
 		usuario = new User( loginMB.getUsuario().getUsuario(), loginMB.getUsuario().getSenha() );
