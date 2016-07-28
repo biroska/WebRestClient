@@ -14,4 +14,6 @@ public interface ServiceAccess {
 	public void editarAlbum( String id, Album album );
 	
 	public void salvarBanda( Banda banda );
+
+	public void removerBanda(Long idBanda);
 }

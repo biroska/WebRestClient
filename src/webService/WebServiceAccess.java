@@ -5,21 +5,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
-import util.Constants;
 import converter.JAXB;
 import entidade.Album;
 import entidade.Banda;
+import util.ConnectionAux;
+import util.Constants;
 
 public class WebServiceAccess implements ServiceAccess {
 
 	private static ArrayList<Banda> listaBandas = new ArrayList<Banda>();
-
+	
 	/* Inicializa a base de bandas */
 	static {
 		
@@ -37,17 +37,18 @@ public class WebServiceAccess implements ServiceAccess {
 		listaBandas.add( new Banda( id++, "Deep Purple", 1968L) );
 	}
 	
-	
+	@Override
 	public List<Banda> getAllBandas() {
 
 		listaBandas = new ArrayList<Banda>();
 		
+		HttpURLConnection conn = null;
+		
 		try {
 			 
-			URL url = new URL( Constants.WEBSERVICE_ADDRESS.GET_ALL );
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod( Constants.REQUEST_TYPE.GET );
-			conn.setRequestProperty("Accept", Constants.REQUEST_PROPERTY.XML );
+			conn = ConnectionAux.getConnection(  Constants.WEBSERVICE_ADDRESS.GET_ALL, 
+												 Constants.REQUEST_TYPE.GET,
+												 Constants.REQUEST_PROPERTY.XML);
 	 
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
@@ -84,11 +85,72 @@ public class WebServiceAccess implements ServiceAccess {
 		return listaBandas;
 	}
 	
+	@Override
 	public void removerAlbum( Banda banda, Album album ){
-		int index = listaBandas.indexOf( banda );
-		boolean remove = listaBandas.get( index ).getAlbuns().remove( album );
+//		int index = listaBandas.indexOf( banda );
+//		boolean remove = listaBandas.get( index ).getAlbuns().remove( album );
+		
+		if ( banda == null || banda.getId() == null ){
+			return;
+		}
+		
+		if ( album == null || album.getId() == null ){
+			return;
+		}
+		
+		HttpURLConnection conn = null;
+		
+		try {
+			conn = ConnectionAux.getConnection( Constants.WEBSERVICE_ADDRESS.REMOVE +
+					   								banda.getId()+"/"+album.getId(),
+												Constants.REQUEST_TYPE.DELETE,
+												Constants.REQUEST_PROPERTY.PLAIN);
+			
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 	}
 	
+	@Override
+	public void removerBanda( Long idBanda ){
+		
+		if ( idBanda == null || idBanda < 0 ){
+			return;
+		}
+		
+		HttpURLConnection conn = null;
+		
+		try {
+			conn = ConnectionAux.getConnection( Constants.WEBSERVICE_ADDRESS.REMOVE + idBanda,
+												Constants.REQUEST_TYPE.GET,
+												Constants.REQUEST_PROPERTY.XML);
+			
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
 	public void editarAlbum( String id, Album album ){
 		
 		String[] split = id.split("A");
@@ -100,6 +162,7 @@ public class WebServiceAccess implements ServiceAccess {
 		listaBandas.get( idBanda ).getAlbuns().get( idAlbum ).setAnoDeLancamento( album.getAnoDeLancamento() );
 	}
 	
+	@Override
 	public void salvarBanda( Banda banda ){
 		
 		banda.setId( (long) listaBandas.size() +1 );

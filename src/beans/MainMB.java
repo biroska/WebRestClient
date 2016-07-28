@@ -21,6 +21,8 @@ import entidade.Banda;
 @ManagedBean(name="mainMB")
 public class MainMB implements Serializable {
 
+	private static final long serialVersionUID = 6760065399209949225L;
+
 	private Service service = new Service();
 	
 	private ArrayList<Banda> listaBandas;
@@ -64,6 +66,19 @@ public class MainMB implements Serializable {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void removerAlbum( String paramAlterar) {
+		
+		this.bandaModal = getBandaFromList( paramAlterar );
+		
+		service.removerAlbum( this.bandaModal.getBanda(), new Album( this.bandaModal.getIdAlbum(), this.bandaModal.getNomeAlbum(), this.bandaModal.getAnoDeLancamentoAlbum() ) );
+		
+		addMessage("Registro Removido: " + bandaModal.getBanda().getNome() );
+		
+		recarregarListaBandas();
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void removerBanda( String paramAlterar) {
+//		public void removerBanda( Long idBanda ){
 		
 		this.bandaModal = getBandaFromList( paramAlterar );
 		

@@ -33,6 +33,10 @@ public class Service implements ServiceAccess {
 		webService.removerAlbum( banda, album );
 	}
 	
+	public void removerBanda( Long idBanda ){
+		webService.removerBanda( idBanda );
+	}
+	
 	public void editarAlbum( String id, Album album ){
 		webService.editarAlbum( id, album );
 	}

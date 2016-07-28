@@ -62,4 +62,10 @@ public class MockServiceAccess implements ServiceAccess {
 		
 		listaBandas.add( banda );
 	}
+
+	@Override
+	public void removerBanda(Long idBanda) {
+		// TODO Auto-generated method stub
+		
+	}
 }
