@@ -3,12 +3,16 @@ package webService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
+
+import org.apache.commons.lang3.StringUtils;
 
 import converter.JAXB;
 import entidade.Album;
@@ -172,5 +176,46 @@ public class WebServiceAccess implements ServiceAccess {
 		}
 		
 		listaBandas.add( banda );
+	}
+	
+	@Override
+	public void salvarBanda( String xml ){
+		
+		if ( StringUtils.isBlank( xml ) ){
+			return;
+		}
+		
+		HttpURLConnection conn = null;
+		
+		try {
+			conn = ConnectionAux.getConnection( Constants.WEBSERVICE_PREFIX,
+												Constants.REQUEST_TYPE.POST,
+												Constants.REQUEST_PROPERTY.PLAIN);
+			
+			conn.setDoOutput( true );
+			conn.setDoInput( true );
+			
+			conn.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
+			
+			OutputStream os = conn.getOutputStream();
+			
+			OutputStreamWriter osw = new OutputStreamWriter( os );
+			osw.write( xml );
+			osw.flush();
+			// TODO ERRO 404
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 }

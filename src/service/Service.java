@@ -44,5 +44,9 @@ public class Service implements ServiceAccess {
 	public void salvarBanda( Banda banda ){
 		webService.salvarBanda( banda );
 	}
+	
+	public void salvarBanda( String bandaXml ){
+		webService.salvarBanda( bandaXml );
+	}
 
 }

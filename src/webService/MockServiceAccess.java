@@ -68,4 +68,10 @@ public class MockServiceAccess implements ServiceAccess {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void salvarBanda(String xml) {
+		// TODO Auto-generated method stub
+		
+	}
 }

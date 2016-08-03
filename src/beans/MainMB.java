@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 import service.Service;
+import util.JAXBAux;
 import converter.ConverterHelper;
 import dto.DTOBanda;
 import entidade.Album;
@@ -109,7 +110,14 @@ public class MainMB implements Serializable {
 				
 			} else {
 				// Novo registro
-				service.salvarBanda( ConverterHelper.convertFrom(bandaModal) );
+				
+				Banda convertFrom = ConverterHelper.convertFrom(bandaModal);
+				String bandaToXML = JAXBAux.bandaToXML( convertFrom );
+				
+				//TODO - Passar o xml gerado para o servico
+				
+//				service.salvarBanda( ConverterHelper.convertFrom(bandaModal) );
+				service.salvarBanda( bandaToXML );
 			}
 
 			addMessage("Registro salvo: " + bandaModal.getBanda().getNome());

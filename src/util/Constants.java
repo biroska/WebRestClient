@@ -4,7 +4,7 @@ public interface Constants {
 	
 	public static final String PAGES_FOLDER = "pages/";
 	
-	public static final String WEBSERVICE_PREFIX = "http://localhost:8080/WebRest/";
+	public static final String WEBSERVICE_PREFIX = "http://localhost:9090/WebRest/";
 
 	public interface WEBSERVICE_ADDRESS {
 		public static final String GET_ALL = WEBSERVICE_PREFIX + "bandas";
@@ -14,6 +14,7 @@ public interface Constants {
 	public interface REQUEST_TYPE {
 		public static final String GET = "GET";
 		public static final String DELETE = "DELETE";
+		public static final String POST = "POST";
 	}
 	
 	public interface REQUEST_PROPERTY {

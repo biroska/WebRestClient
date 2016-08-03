@@ -16,4 +16,6 @@ public interface ServiceAccess {
 	public void salvarBanda( Banda banda );
 
 	public void removerBanda(Long idBanda);
+
+	public void salvarBanda(String xml);
 }
