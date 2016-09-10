@@ -9,6 +9,7 @@ public interface Constants {
 	public interface WEBSERVICE_ADDRESS {
 		public static final String GET_ALL = WEBSERVICE_PREFIX + "bandas";
 		public static final String REMOVE = WEBSERVICE_PREFIX + "bandas/";
+		public static final String ADD = WEBSERVICE_PREFIX + "bandas/";
 	}
 
 	public interface REQUEST_TYPE {

@@ -188,7 +188,7 @@ public class WebServiceAccess implements ServiceAccess {
 		HttpURLConnection conn = null;
 		
 		try {
-			conn = ConnectionAux.getConnection( Constants.WEBSERVICE_PREFIX,
+			conn = ConnectionAux.getConnection( Constants.WEBSERVICE_ADDRESS.ADD,
 												Constants.REQUEST_TYPE.POST,
 												Constants.REQUEST_PROPERTY.PLAIN);
 			
