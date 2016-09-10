@@ -3,14 +3,15 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.SessionAux;
-import webService.MockServiceAccess;
-import webService.ServiceAccess;
-import webService.WebServiceAccess;
 import dao.userDAO;
 import entidade.Album;
 import entidade.Banda;
 import entidade.User;
+import exception.RestServiceException;
+import util.SessionAux;
+import webService.MockServiceAccess;
+import webService.ServiceAccess;
+import webService.WebServiceAccess;
 
 public class Service implements ServiceAccess {
 	
@@ -45,8 +46,12 @@ public class Service implements ServiceAccess {
 		webService.salvarBanda( banda );
 	}
 	
-	public void salvarBanda( String bandaXml ){
-		webService.salvarBanda( bandaXml );
+	public void salvarBanda( String bandaXml ) throws RestServiceException{
+		try {
+			webService.salvarBanda( bandaXml );
+		} catch ( RestServiceException e ){
+			throw new RestServiceException( e.getMessage(), e );
+		}
 	}
 
 }

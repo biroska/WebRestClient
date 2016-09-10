@@ -4,6 +4,7 @@ import java.util.List;
 
 import entidade.Album;
 import entidade.Banda;
+import exception.RestServiceException;
 
 public interface ServiceAccess {
 
@@ -17,5 +18,5 @@ public interface ServiceAccess {
 
 	public void removerBanda(Long idBanda);
 
-	public void salvarBanda(String xml);
+	public void salvarBanda(String xml) throws RestServiceException;
 }

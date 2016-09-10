@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import converter.JAXB;
 import entidade.Album;
 import entidade.Banda;
+import exception.RestServiceException;
 import util.ConnectionAux;
 import util.Constants;
 
@@ -179,7 +180,7 @@ public class WebServiceAccess implements ServiceAccess {
 	}
 	
 	@Override
-	public void salvarBanda( String xml ){
+	public void salvarBanda( String xml ) throws RestServiceException {
 		
 		if ( StringUtils.isBlank( xml ) ){
 			return;
@@ -204,7 +205,7 @@ public class WebServiceAccess implements ServiceAccess {
 			osw.flush();
 			// TODO ERRO 404
 			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : "
+				throw new RestServiceException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
 			}
 
